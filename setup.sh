@@ -51,46 +51,38 @@ function setup-tmux(){
 # tmux
 PATH="\${HOME}/local/bin:\${PATH}"
 EOF
-    source ${HOME}/.bashrc
+    # source ${HOME}/.bashrc
 }
 
 # powerline/powerline
 function setup-powerline(){
 
-    # ダウンロード
-    mkdir -p ${WORK_DIR}
-    cd ${WORK_DIR}
-    curl -OL https://github.com/powerline/powerline/archive/2.7.tar.gz
-    tar -zxvf 2.7.tar.gz
+    # 依存パッケージ
+    sudo apt install python3-pip
 
     # インストール
-    cd powerline-2.7
-    mkdir -p ${HOME}/.config
-    cp -r ./powerline ${HOME}/.config/
-
-    mkdir -p ${HOME}/local/bin
-    cp -r ./scripts/powerline-* ${HOME}/local/bin/
+    pip install --user powerline-status
 
     # 設定
     cat <<EOF >> ${HOME}/.tmux.conf
 
 # powerline
 run-shell "powerline-daemon -q"
-source "${HOME}/.config/powerline/bindings/tmux/powerline.conf"
+source "${HOME}/.local/lib/python3.6/site-packages/powerline/bindings/tmux/powerline.conf"
 EOF
 
     # PATH
     cat <<EOF >> ${HOME}/.bashrc
 
 # powerline
-PATH="\${HOME}/local/bin:\${PATH}"
+PATH="\${HOME}/.local/bin:\${PATH}"
 EOF
-    source ${HOME}/.bashrc
+    # source ${HOME}/.bashrc
 }
 
 # emacs
 function setup-emacs(){
-    
+
     # 依存パッケージ
     sudo apt install -y build-essential libncurses5-dev libgnutls28-dev pkg-config mailutils
 
@@ -129,4 +121,4 @@ function config-emacs(){
 #setup-tmux
 #setup-powerline
 #setup-emacs
-config-emacs
+#config-emacs
