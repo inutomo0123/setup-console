@@ -114,6 +114,36 @@ function config-emacs(){
     ln -s ${HOME}/repo.d/dotfiles/.emacs.d ${HOME}/
 }
 
+function setup-font(){
+
+    # ダウンロード
+    mkdir -p ${HOME}/repo.d
+    cd ${HOME}/repo.d/
+    git clone https://github.com/powerline/fonts.git
+
+    # インストール
+    cd fonts/
+    ./install.sh
+}
+
+
+function setup-fish(){
+
+    cd $(dirname $0)
+
+    # インストール
+    sudo apt-add-repository ppa:fish-shell/release-3
+    sudo apt update
+    sudo apt install fish
+
+    # FISHER
+    curl -L https://get.oh-my.fish | fish
+    curl https://git.io/fisher --create-dirs \
+         -sLo ${HOME}/.config/fish/functions/fisher.fish
+    fish --command="fisher add oh-my-fish/theme-bobthefish"
+
+}
+
 
 #step0
 #step1
@@ -122,3 +152,5 @@ function config-emacs(){
 #setup-powerline
 #setup-emacs
 #config-emacs
+#setup-font
+setup-fish
