@@ -3,8 +3,7 @@
 set -ue
 
 WORK_DIR="/tmp/$(date +%Y%m%d%H%M%S)"
-
-cd $(dirname $0)
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 # update
 function step0(){
@@ -16,7 +15,7 @@ function step0(){
 # bash_completionを有効化
 function step1(){
     cat ./bash_completion >> ${HOME}/.bashrc
-    source ${HOME}/.bashrc
+    # source ${HOME}/.bashrc
 }
 
 # etckeeper
@@ -42,8 +41,8 @@ function setup-tmux(){
     make install
 
     # 設定
-    cd $(dirname $0)
-    cp -i ./.tmux.conf ${home}/
+    cd ${SCRIPT_DIR}
+    cp -i ./.tmux.conf ${HOME}/
 
     # PATH
     cat <<EOF >> ${HOME}/.bashrc
@@ -58,10 +57,10 @@ EOF
 function setup-powerline(){
 
     # 依存パッケージ
-    sudo apt install python3-pip
+    sudo apt install -y python3-pip
 
     # インストール
-    pip install --user powerline-status
+    pip3 install --user powerline-status
 
     # 設定
     cat <<EOF >> ${HOME}/.tmux.conf
@@ -129,7 +128,7 @@ function setup-font(){
 
 function setup-fish(){
 
-    cd $(dirname $0)
+    cd ${SCRIPT_DIR}
 
     # インストール
     sudo apt-add-repository ppa:fish-shell/release-3
@@ -142,6 +141,14 @@ function setup-fish(){
          -sLo ${HOME}/.config/fish/functions/fisher.fish
     fish --command="fisher add oh-my-fish/theme-bobthefish"
 
+    # tmux
+    cat <<EOF >> ${HOME}/.tmux.conf
+
+# デフォルトシェル
+set -g default-command /usr/bin/fish
+set -g default-shell /usr/bin/fish
+EOF
+
 }
 
 
@@ -153,4 +160,4 @@ function setup-fish(){
 #setup-emacs
 #config-emacs
 #setup-font
-setup-fish
+#setup-fish
