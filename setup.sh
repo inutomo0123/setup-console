@@ -2,26 +2,8 @@
 
 set -ue
 
-WORK_DIR="/tmp/$(date +%Y%m%d%H%M%S)"
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-
-# update
-function step0(){
-    sudo apt update
-    sudo apt dist-upgrade -y
-    sudo reboot
-}
-
-# bash_completionを有効化
-function step1(){
-    cat ./bash_completion >> ${HOME}/.bashrc
-    # source ${HOME}/.bashrc
-}
-
-# etckeeper
-function setup-etckeeper(){
-    sudo apt install -y etckeeper
-}
+WORK_DIR="/tmp/$(date +%Y%m%d%H%M%S)"
 
 # tmux
 function setup-tmux(){
@@ -50,7 +32,7 @@ function setup-tmux(){
 # tmux
 PATH="\${HOME}/local/bin:\${PATH}"
 EOF
-    # source ${HOME}/.bashrc
+
 }
 
 # powerline/powerline
@@ -76,7 +58,7 @@ EOF
 # powerline
 PATH="\${HOME}/.local/bin:\${PATH}"
 EOF
-    # source ${HOME}/.bashrc
+
 }
 
 # emacs
@@ -133,7 +115,7 @@ function setup-fish(){
     # インストール
     sudo apt-add-repository ppa:fish-shell/release-3
     sudo apt update
-    sudo apt install fish
+    sudo apt install -y fish
 
     # FISHER
     curl -L https://get.oh-my.fish | fish
@@ -151,13 +133,9 @@ EOF
 
 }
 
-
-#step0
-#step1
-#setup-etckeeper
-#setup-tmux
-#setup-powerline
-#setup-emacs
-#config-emacs
-#setup-font
-#setup-fish
+setup-tmux
+setup-powerline
+setup-emacs
+config-emacs
+setup-font
+setup-fish
