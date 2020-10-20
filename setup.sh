@@ -35,6 +35,11 @@ function setup-tmux(){
     make
     make install
 
+    # バックアップ
+    if [ -f "${HOME}/.tmux.conf "]; then
+        mv "${HOME}/.tmux.conf" "${HOME}/.tmux.conf.${SERIAL}"
+    fi
+
     # 設定
     cd "${SCRIPT_DIR}"
     cp -i ./.tmux.conf "${HOME}/"
@@ -149,6 +154,10 @@ function setup-fish(){
     sudo apt install -y fish
 
     # FISHER
+    # 退避
+    if [ -d "${HOME}/.local/share/omf/" ]; then
+        mv "${HOME}/.local/share/omf/" "${HOME}/.local/share/omf.${SERIAL}"
+    fi
     curl -L https://get.oh-my.fish | fish
     curl https://git.io/fisher --create-dirs \
          -sLo "${HOME}/.config/fish/functions/fisher.fish"
@@ -158,7 +167,7 @@ function setup-fish(){
     cat <<EOF >> "${HOME}/.config/fish/config.fish"
 
 # 行末の日付時刻を非表示にする
-set -U theme_display_date no 
+set -U theme_display_date no
 set -U theme_display_cmd_duration no
 EOF
 
