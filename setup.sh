@@ -15,6 +15,7 @@ EMACS_VERSION="27.1"
 
 # tmux
 function setup-tmux(){
+
     # 依存パッケージ
     sudo apt install -y \
          build-essential \
@@ -29,7 +30,7 @@ function setup-tmux(){
     tar -zxvf "tmux-${TMUX_VERSION}.tar.gz"
 
     # インストール
-    cd "${TMUX_VERSION}"
+    cd "./tmux-${TMUX_VERSION}"
     ./configure --prefix="${LOCAL_DIR}"
     make
     make install
@@ -42,7 +43,7 @@ function setup-tmux(){
     cat <<EOF >> "${HOME}/.bashrc"
 
 # tmux
-PATH="\${BIN_DIR}:\${PATH}"
+PATH="${BIN_DIR}:\${PATH}"
 EOF
 
 }
@@ -102,13 +103,20 @@ function setup-emacs(){
     make
     make install
 
+   # PATH
+   cat <<EOF
+
+# emacs
+PAHT="${BIN_DIR}:\${PATH}"
+EOF
+
 }
 
 function config-emacs(){
 
     # ダウンロード
     mkdir -p "${SRC_DIR}"
-    cd "${SCRIPT_DIR}"
+    cd "${SRC_DIR}"
     git clone "https://github.com/inutomo0123/dotfiles.git"
 
     # バックアップ
@@ -145,6 +153,14 @@ function setup-fish(){
     curl https://git.io/fisher --create-dirs \
          -sLo "${HOME}/.config/fish/functions/fisher.fish"
     fish --command="fisher add oh-my-fish/theme-bobthefish"
+
+    # 行末の日付を非表示にする
+    cat <<EOF >> "${HOME}/.config/fish/config.fish"
+
+# 行末の日付時刻を非表示にする
+set -U theme_display_date no 
+set -U theme_display_cmd_duration no
+EOF
 
     # tmux
     cat <<EOF >> "${HOME}/.tmux.conf"
