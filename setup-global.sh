@@ -19,7 +19,7 @@ function pygments-setup(){
     sudo apt install exuberant-ctags
 
     # pythonのバージョンによる分岐
-    python_version=$(python --version \
+    python_version=$(python --version 2>&1 \
                          | grep -o "[2,3]\.[0-9]\.[0-9]")
 
     if [ "${python_version:0:1}" = "2" ]; then
@@ -80,10 +80,9 @@ function gnuglobal-setting(){
 
     # PATH
     if [ -f "${HOME}/.bashrc" ] ; then
-       cp "${HOME}/.bashrc" "${HOME}/.bashrc.${SERIAL}"
-    fi
 
-    if [[ ":${PATH}:" == *:"${BIN_DIR}":* ]]; then
+        cp "${HOME}/.bashrc" "${HOME}/.bashrc.${SERIAL}"
+
         cat <<EOF >> "${HOME}/.bashrc"
 
 # GNU GLOBAL
