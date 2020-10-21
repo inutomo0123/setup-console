@@ -2,9 +2,9 @@
 
 set -Cue
 
-SRC_DIR="${HOME}/local/src/"
-LOCAL_DIR="${HOME}/local/"
-BIN_DIR="${HOME}/local/bin/"
+SRC_DIR="${HOME}/local/src"
+LOCAL_DIR="${HOME}/local"
+BIN_DIR="${HOME}/local/bin"
 
 SERIAL="$(date +%Y%m%d%H%M%S)"
 
@@ -86,7 +86,7 @@ function gnuglobal-setting(){
         cat <<EOF >> "${HOME}/.bashrc"
 
 # GNU GLOBAL
-PATH="${BIN_DIR}:\${PATH}"
+PATH="\${HOME}/local/bin:\${PATH}"
 EOF
     fi
 }

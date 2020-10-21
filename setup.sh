@@ -4,9 +4,9 @@ set -ue
 
 SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd)
 
-SRC_DIR="${HOME}/local/src/"
-LOCAL_DIR="${HOME}/local/"
-BIN_DIR="${HOME}/local/bin/"
+SRC_DIR="${HOME}/local/src"
+LOCAL_DIR="${HOME}/local"
+BIN_DIR="${HOME}/local/bin"
 
 SERIAL="$(date +%Y%m%d%H%M%S)"
 
@@ -48,7 +48,7 @@ function setup-tmux(){
     cat <<EOF >> "${HOME}/.bashrc"
 
 # tmux
-PATH="${BIN_DIR}:\${PATH}"
+PATH="\${HOME}/local/bin:\${PATH}"
 EOF
 
 }
@@ -109,10 +109,10 @@ function setup-emacs(){
     make install
 
    # PATH
-   cat <<EOF
+   cat <<EOF >> "${HOME}/.bashrc"
 
 # emacs
-PAHT="${BIN_DIR}:\${PATH}"
+PAHT="\${HOME}/local/bin:\${PATH}"
 EOF
 
 }
@@ -129,7 +129,7 @@ function config-emacs(){
 	    mv "${HOME}/.emacs.d" "${HOME}/.emacs.d.${SERIAL}"
     fi
 
-    ln -s "${SRC_DIR}dotfiles/.emacs.d" "${HOME}/.emacs.d"
+    ln -s "${SRC_DIR}/dotfiles/.emacs.d" "${HOME}/.emacs.d"
 }
 
 function setup-font(){
