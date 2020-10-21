@@ -35,7 +35,7 @@ function forpython3(){
     sudo apt install python3-pip
 
     # Pygmentsのインストール
-    pip3 install --user Pygment
+    pip3 install --user Pygments
 
 }
 
@@ -45,11 +45,13 @@ function forpython2(){
     sudo apt install python-pip
 
     # Pygmentsのインストール
-    pip install --user Pygment
+    pip install --user Pygments
 }
 
 # GNU GLOBAL
 function gnuglobal-setup(){
+
+    sudo apt install build-essential libncurses-dev
 
     mkdir -p "${SRC_DIR}"
 
@@ -78,7 +80,7 @@ function gnuglobal-setting(){
 
     # PATH
     if [ -f "${HOME}/.bashrc" ] ; then
-       mv "${HOME}/.bashrc" "${HOME}/.bashrc.${SERIAL}"
+       cp "${HOME}/.bashrc" "${HOME}/.bashrc.${SERIAL}"
     fi
 
     if [[ ":${PATH}:" == *:"${BIN_DIR}":* ]]; then
