@@ -112,7 +112,7 @@ function setup-emacs(){
    cat <<EOF >> "${HOME}/.bashrc"
 
 # emacs
-PAHT="\${HOME}/local/bin:\${PATH}"
+PATH="\${HOME}/local/bin:\${PATH}"
 EOF
 
 }
