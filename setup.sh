@@ -161,7 +161,7 @@ function setup-fish(){
     curl -L https://get.oh-my.fish | fish
     curl https://git.io/fisher --create-dirs \
          -sLo "${HOME}/.config/fish/functions/fisher.fish"
-    fish --command="fisher add oh-my-fish/theme-bobthefish"
+    fish --command="fisher install oh-my-fish/theme-bobthefish"
 
     # 行末の日付を非表示にする
     cat <<EOF >> "${HOME}/.config/fish/config.fish"
