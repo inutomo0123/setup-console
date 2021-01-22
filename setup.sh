@@ -158,10 +158,10 @@ function setup-fish(){
     if [ -d "${HOME}/.local/share/omf/" ]; then
         mv "${HOME}/.local/share/omf/" "${HOME}/.local/share/omf.${SERIAL}"
     fi
-    curl -L https://get.oh-my.fish | fish
-    curl https://git.io/fisher --create-dirs \
-         -sLo "${HOME}/.config/fish/functions/fisher.fish"
-    fish --command="fisher install oh-my-fish/theme-bobthefish"
+    # curl -L https://get.oh-my.fish | fish
+    # curl https://git.io/fisher --create-dirs \
+    #      -sLo "${HOME}/.config/fish/functions/fisher.fish"
+    # fish --command="fisher install oh-my-fish/theme-bobthefish"
 
     # 行末の日付を非表示にする
     cat <<EOF >> "${HOME}/.config/fish/config.fish"
@@ -179,6 +179,8 @@ set -g default-command /usr/bin/fish
 set -g default-shell /usr/bin/fish
 EOF
 
+    curl -fsSL https://starship.rs/install.sh | bash
+    echo "starship init fish | source" >> ~/.config/fish/config.fish
 }
 
 setup-tmux
